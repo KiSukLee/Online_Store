@@ -22,7 +22,7 @@ class Product:
         result = connectToMySQL("online_store").query_db(query, data)
         return result
     @classmethod
-    def get_product_by_id(cls, data):
+    def get_products_by_id(cls, data):
         query = "SELECT * FROM products WHERE product_id = %(product_id)s"
         result = connectToMySQL("online_store").query_db(query, data)
         return result
@@ -32,7 +32,7 @@ class Product:
         return connectToMySQL("online_store").query_db(query, data)
     @classmethod 
     def add_to_cart(cls, data):
-        query = "INSERT INTO products (name, price, cart_id) VALUES (%(name)s, %(price)s, %(cart_id)s)"
+        query = "INSERT INTO products (name, price, cart_id, user_id) VALUES (%(name)s, %(price)s, %(cart_id)s, %(user_id)s)"
         return connectToMySQL("online_store").query_db(query, data)
     @classmethod
     def remove(cls, data):

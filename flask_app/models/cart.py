@@ -12,12 +12,12 @@ class Cart:
         return result
     @classmethod
     def get_products_by_id(cls, data):
-        query = "SELECT * FROM cart LEFT JOIN products ON products.cart_id = cart.id WHERE products.cart_id = %(cart_id)s"
+        query = "SELECT * FROM cart LEFT JOIN products ON products.cart_id = cart.id WHERE products.cart_id = %(cart_id)s AND products.user_id = %(user_id)s"
         results = connectToMySQL("online_store").query_db(query, data)
         return results
     @classmethod
     def get_all_prices_by_id(cls, data):
-        query = "SELECT price FROM cart LEFT JOIN products ON products.cart_id = cart.id WHERE products.cart_id = %(cart_id)s"
+        query = "SELECT price FROM cart LEFT JOIN products ON products.cart_id = cart.id WHERE products.cart_id = %(cart_id)s AND products.user_id = %(user_id)s"
         results = connectToMySQL("online_store").query_db(query, data)
         return results
     @classmethod

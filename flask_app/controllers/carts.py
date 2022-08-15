@@ -1,3 +1,5 @@
+from itertools import count
+from unicodedata import name
 from flask_app import app
 from flask import render_template, redirect, flash, request, session
 from flask_app.models.cart import Cart
@@ -5,22 +7,31 @@ from flask_app.models.user import User
 
 @app.route('/cart')
 def cart():
-    data = {
-        "cart_id": session["cart_id"],
-    }
+    print(session["user_id"])
     print(session["cart_id"])
-    prices = Cart.get_all_prices_by_id(data)
-    total = 0
-    for price in prices:
-        total += price["price"]
+    total =  0
     data = {
         "total": total,
         "user_id": session["user_id"],
         "cart_id": session["cart_id"]
     }
+    prices = Cart.get_all_prices_by_id(data)
+    print(prices)
+    for price in prices:
+        total += price["price"]
     Cart.update_total(data)
     cart = Cart.get_products_by_id(data)
-    return render_template("cart.html", cart = cart, total = total)
+    temp = {}
+    for product in cart:
+        a = product.get('name')
+        if a not in temp:
+            temp[a] = 1
+        else:
+            temp[a] = temp[a] + 1
+            cart.remove(product)
+    print(cart)
+    print(temp)
+    return render_template("cart.html", cart = cart, total = total, temp = temp)
 @app.route('/new')
 def new():
     data = {

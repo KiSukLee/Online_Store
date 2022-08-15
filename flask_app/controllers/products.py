@@ -52,7 +52,7 @@ def add(product_id):
         "product_id": product_id
     }
 
-    product = Product.get_product_by_id(data)[0]
+    product = Product.get_products_by_id(data)[0]
     data = {
         "name": product["name"]
     }
@@ -73,7 +73,7 @@ def remove(product_id):
     data = {
         "product_id": product_id
     }
-    product = Product.get_product_by_id(data)[0]
+    product = Product.get_products_by_id(data)[0]
     data = {
         "name": product["name"]
     }
